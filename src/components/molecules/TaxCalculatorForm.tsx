@@ -29,9 +29,9 @@ const TaxCalculatorForm: React.FC<TaxCalculatorFormProps> = ({
       />
       <YearPicker
         value={year}
-        onChange={(value) => onChange("year", value)}
         disabled={disabled}
         yearOptions={years}
+        onChange={(value) => onChange("year", value)}
       />
       <Box>
         <Button
