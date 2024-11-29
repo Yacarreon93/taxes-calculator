@@ -1,10 +1,6 @@
-const API_ENDPOINT = "http://localhost:5001/tax-calculator/tax-year/";
+import { TaxBracket } from "../types";
 
-export interface TaxBracket {
-  min: number;
-  max: number;
-  rate: number;
-}
+const API_ENDPOINT = "http://localhost:5001/tax-calculator/tax-year/";
 
 /**
  * Fetches the tax brackets for a given year from the API.

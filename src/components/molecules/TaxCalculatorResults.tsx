@@ -9,12 +9,14 @@ import {
   Paper,
 } from "@mui/material";
 import { formatToDollars } from "../../utils/format";
+import { TaxBracket } from "../../types";
+import { getTaxesPerBracket } from "../../utils/taxes";
 
 interface TaxCalculatorResultsProps {
   error: Error | null;
   loading: boolean;
   salary: number;
-  data: any[];
+  data: TaxBracket[];
 }
 
 const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
@@ -51,22 +53,28 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Band </TableCell>
+                <TableCell>Bracket </TableCell>
                 <TableCell>Rate</TableCell>
+                <TableCell>Taxes per Bracket</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((result: any) => (
-                <TableRow key={result.id}>
+              {data.map((bracket: TaxBracket) => (
+                <TableRow key={bracket.min}>
                   <TableCell>
-                    {result.max
+                    {bracket.max
                       ? [
-                          formatToDollars(result.min),
-                          formatToDollars(result.max),
+                          formatToDollars(bracket.min),
+                          formatToDollars(bracket.max),
                         ].join(" - ")
-                      : formatToDollars(result.min)}
+                      : formatToDollars(bracket.min)}
                   </TableCell>
-                  <TableCell>{`${result.rate}%`}</TableCell>
+                  <TableCell>{`${bracket.rate}%`}</TableCell>
+                  <TableCell>
+                    <i>
+                      {formatToDollars(getTaxesPerBracket(bracket, salary))}
+                    </i>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
