@@ -38,10 +38,16 @@ const TaxCalculatorContainer = () => {
         <TaxCalculatorForm
           year={year}
           salary={salary}
+          disabled={loading}
           onChange={handleChange}
           onSubmit={fetchData}
         />
-        <TaxCalculatorResults error={error} loading={loading} data={data} />
+        <TaxCalculatorResults
+          data={data}
+          salary={Number(salary)}
+          error={error}
+          loading={loading}
+        />
       </Box>
     </Container>
   );
