@@ -5,25 +5,35 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 
 interface TaxCalculatorFormProps {
-  onSubmit: (salary: string, year: string) => void;
+  year: string;
+  salary: string;
+  onChange: (key: string, value: string) => void;
+  onSubmit: () => void;
 }
 
-const TaxCalculatorForm: React.FC<TaxCalculatorFormProps> = ({ onSubmit }) => {
-  const [salary, setSalary] = useState("");
-  const [year, setYear] = useState("");
-
+const TaxCalculatorForm: React.FC<TaxCalculatorFormProps> = ({
+  year,
+  salary,
+  onChange,
+  onSubmit,
+}) => {
   const years = ["2019", "2020", "2021", "2022"];
-
-  const handleSubmit = () => onSubmit(salary, year);
 
   return (
     <Box display="flex" alignItems="center" gap={2}>
-      <SalaryInput value={salary} onChange={setSalary} />
-      <YearPicker value={year} onChange={setYear} yearOptions={years} />
+      <SalaryInput
+        value={salary}
+        onChange={(value) => onChange("salary", value)}
+      />
+      <YearPicker
+        value={year}
+        onChange={(value) => onChange("year", value)}
+        yearOptions={years}
+      />
       <Box>
         <Button
           variant="contained"
-          onClick={handleSubmit}
+          onClick={onSubmit}
           disabled={!salary || !year}
         >
           Calculate

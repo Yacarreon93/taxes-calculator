@@ -1,17 +1,17 @@
 import { CircularProgress, Box, Typography } from "@mui/material";
 
 interface TaxCalculatorResultsProps {
-  isError: boolean;
-  isLoading: boolean;
+  error: Error | null;
+  loading: boolean;
   results: any[];
 }
 
 const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
-  isError,
-  isLoading,
+  error,
+  loading,
   results,
 }) => {
-  if (isError) {
+  if (!!error) {
     return (
       <Box textAlign="center">
         <Typography color="error">
@@ -21,7 +21,7 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
     );
   }
 
-  if (isLoading) {
+  if (loading) {
     return (
       <Box textAlign="center">
         <CircularProgress />
