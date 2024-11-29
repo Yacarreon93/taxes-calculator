@@ -27,12 +27,12 @@ const SalaryInput: React.FC<SalaryInputProps> = ({ value, onChange }) => {
 
   return (
     <TextField
+      fullWidth
       label="Yearly Salary"
       variant="outlined"
       type="text" // Use text for formatted input instead of number
       value={displayValue}
       onChange={handleInputChange}
-      fullWidth
       slotProps={{
         htmlInput: {
           min: 0,
@@ -41,7 +41,6 @@ const SalaryInput: React.FC<SalaryInputProps> = ({ value, onChange }) => {
           startAdornment: <InputAdornment position="start">$</InputAdornment>,
         },
       }}
-      margin="normal"
     />
   );
 };

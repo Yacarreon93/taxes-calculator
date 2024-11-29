@@ -19,10 +19,10 @@ const YearPicker: React.FC<YearPickerProps> = ({
     <FormControl fullWidth>
       <InputLabel id="year-select-label">Select Year</InputLabel>
       <Select
+        label="Select Year"
         labelId="year-select-label"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        label="Select Year"
       >
         {yearOptions.map((year: string) => (
           <MenuItem key={year} value={year}>

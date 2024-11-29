@@ -2,6 +2,7 @@ import { useState } from "react";
 import SalaryInput from "../atoms/SalaryInput";
 import YearPicker from "../atoms/YearPicker";
 import Button from "@mui/material/Button";
+import { Box } from "@mui/material";
 
 interface TaxCalculatorFormProps {
   onSubmit: (salary: string, year: string) => void;
@@ -16,18 +17,19 @@ const TaxCalculatorForm: React.FC<TaxCalculatorFormProps> = ({ onSubmit }) => {
   const handleSubmit = () => onSubmit(salary, year);
 
   return (
-    <div>
+    <Box display="flex" alignItems="center" gap={2}>
       <SalaryInput value={salary} onChange={setSalary} />
       <YearPicker value={year} onChange={setYear} yearOptions={years} />
-      <Button
-        variant="contained"
-        onClick={handleSubmit}
-        disabled={!salary || !year}
-        style={{ marginTop: "16px" }}
-      >
-        Calculate Taxes
-      </Button>
-    </div>
+      <Box>
+        <Button
+          variant="contained"
+          onClick={handleSubmit}
+          disabled={!salary || !year}
+        >
+          Calculate
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
