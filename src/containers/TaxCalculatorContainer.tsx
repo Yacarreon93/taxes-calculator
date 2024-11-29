@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Box, Typography, Container } from "@mui/material";
 import TaxCalculatorForm from "../components/molecules/TaxCalculatorForm";
 import TaxCalculatorResults from "../components/molecules/TaxCalculatorResults";
@@ -15,10 +15,13 @@ const TaxCalculatorContainer = () => {
   const [year, setYear] = useState("2022");
   const [salary, setSalary] = useState("");
 
-  const { loading, error, results, fetchResults } = useResults(
+  const fetchTrackBrackets = useCallback(
     () => fetchTrackBracketsApi(year),
-    (rawData: TaxBracket[]) => rawData
+    [year]
   );
+
+  const { loading, error, results, fetchResults } =
+    useResults(fetchTrackBrackets);
 
   const handleChange = (key: string, value: string) => {
     if (key === "year") {
