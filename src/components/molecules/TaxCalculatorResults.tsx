@@ -10,14 +10,13 @@ import {
 } from "@mui/material";
 import { formatToDollars } from "../../utils/format";
 import { TaxBracket } from "../../types";
-import { getTaxesPerBracket } from "../../utils/taxes";
+import { useMemo } from "react";
 
 interface TaxCalculatorResultsProps {
   error: Error | null;
   loading: boolean;
   salary: number;
   data: TaxBracket[];
-  total: number;
 }
 
 const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
@@ -25,7 +24,6 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
   loading,
   salary,
   data,
-  total,
 }) => {
   if (!!error) {
     return (
@@ -44,6 +42,12 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
       </Box>
     );
   }
+
+  const totalTaxes = useMemo(
+    () => data.reduce((acc, bracket) => acc + (bracket.taxes || 0), 0),
+    [data]
+  );
+  const effectiveRate = totalTaxes / salary;
 
   if (data.length) {
     return (
@@ -73,9 +77,7 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
                   </TableCell>
                   <TableCell>{`${bracket.rate}%`}</TableCell>
                   <TableCell>
-                    <i>
-                      {formatToDollars(getTaxesPerBracket(bracket, salary))}
-                    </i>
+                    <i>{formatToDollars(bracket.taxes || 0)}</i>
                   </TableCell>
                 </TableRow>
               ))}
@@ -84,9 +86,9 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
         </TableContainer>
         <Box alignSelf="flex-end" textAlign="right">
           <Typography variant="h6">
-            Total Taxes: {formatToDollars(total)}
+            Total Taxes: {formatToDollars(totalTaxes)}
           </Typography>
-          <Typography>Effective Rate: {formatToDollars(total)}</Typography>
+          <Typography>Effective Rate: {effectiveRate.toFixed(2)}%</Typography>
         </Box>
       </Box>
     );

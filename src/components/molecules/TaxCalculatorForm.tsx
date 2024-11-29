@@ -5,8 +5,8 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 
 interface TaxCalculatorFormProps {
-  initialYear?: number;
-  initialSalary?: number;
+  initialYear?: string;
+  initialSalary?: string;
   yearOptions: string[];
   disabled: boolean;
   onSubmit: (year: string, salary: string) => void;
@@ -19,8 +19,8 @@ const TaxCalculatorForm: React.FC<TaxCalculatorFormProps> = ({
   disabled,
   onSubmit,
 }) => {
-  const [year, setYear] = useState(String(initialYear));
-  const [salary, setSalary] = useState(String(initialSalary));
+  const [year, setYear] = useState(initialYear);
+  const [salary, setSalary] = useState(initialSalary);
 
   return (
     <Box display="flex" alignItems="center" gap={2}>

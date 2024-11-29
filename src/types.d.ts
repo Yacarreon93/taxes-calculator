@@ -2,5 +2,5 @@ export interface TaxBracket {
   min: number;
   max: number;
   rate: number;
-  total: ?number;
+  taxes: ?number;
 }
