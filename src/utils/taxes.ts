@@ -17,3 +17,20 @@ export const getTaxesPerBracket = (bracket: TaxBracket, salary: number) => {
 
   return taxableSalary * rate;
 };
+
+/**
+ * Processes the tax brackets to calculate the total tax for each bracket.
+ *
+ * @param {Object[]} taxBrackets - The tax brackets.
+ * @param {number} salary - The yearly salary.
+ * @returns {Object[]} - The tax brackets with the total tax calculated.
+ */
+export const processTaxBrackets = (
+  taxBrackets: TaxBracket[],
+  salary: number
+) => {
+  return taxBrackets.map((bracket) => ({
+    ...bracket,
+    total: getTaxesPerBracket(bracket, salary || 0),
+  }));
+};
