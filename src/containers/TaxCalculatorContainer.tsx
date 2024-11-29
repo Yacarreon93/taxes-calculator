@@ -4,8 +4,8 @@ import TaxCalculatorForm from "../components/molecules/TaxCalculatorForm";
 import TaxCalculatorResults from "../components/molecules/TaxCalculatorResults";
 import useApiFetch from "../hooks/useApiFetch";
 import { fetchTaxBracketsApi } from "../services/api";
-import { TaxBracket } from "../types";
 import { processTaxBrackets } from "../utils/taxes";
+import { TaxBracket } from "../types";
 
 const YEAR_OPTIONS = ["2022", "2021", "2020", "2019"];
 

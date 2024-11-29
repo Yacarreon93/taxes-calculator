@@ -1,8 +1,8 @@
-import SalaryInput from "../atoms/SalaryInput";
-import YearPicker from "../atoms/YearPicker";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
-import { useState } from "react";
+import YearPicker from "../atoms/YearPicker";
+import SalaryInput from "../atoms/SalaryInput";
 
 interface TaxCalculatorFormProps {
   initialYear?: string;
