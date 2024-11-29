@@ -1,25 +1,18 @@
 /**
- * Custom hook to fetch and process results from an API.
+ * Custom hook to manage the state of fetching results from an API.
  *
- * @template V - The type of the raw data fetched from the API.
- * @template T - The type of the processed data.
- *
- * @param {() => Promise<V[]>} fetchApiFunction - The function to fetch raw data from the API.
- * @param {(rawData: V[]) => T[]} processorFunction - The function to process the raw data into the desired format.
- *
+ * @template T - The type of the results returned by the fetch API function.
+ * @param {() => Promise<T[]>} fetchApiFunction - The function to fetch results from an API.
  * @returns {{
  *   loading: boolean;
  *   error: Error | null;
  *   results: T[];
  *   fetchResults: () => Promise<void>;
- * }} An object containing the loading state, error state, processed results, and a function to fetch and process the results.
+ * }} - An object containing the loading state, error state, results, and a function to fetch results.
  */
 import { useState } from "react";
 
-const useResults = <V, T>(
-  fetchApiFunction: () => Promise<V[]>,
-  processorFunction: (rawData: V[]) => T[]
-) => {
+const useResults = <T>(fetchApiFunction: () => Promise<T[]>) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [results, setResults] = useState<T[]>([]);
@@ -28,8 +21,7 @@ const useResults = <V, T>(
     setLoading(true);
     setError(null);
     try {
-      const rawData = await fetchApiFunction();
-      const data = processorFunction(rawData);
+      const data = await fetchApiFunction();
       setResults(data);
     } catch (err) {
       const error = err as Error;
