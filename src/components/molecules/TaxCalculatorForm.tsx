@@ -1,4 +1,3 @@
-import { useState } from "react";
 import SalaryInput from "../atoms/SalaryInput";
 import YearPicker from "../atoms/YearPicker";
 import Button from "@mui/material/Button";
