@@ -10,7 +10,7 @@ const API_ENDPOINT = "http://localhost:5001/tax-calculator/tax-year/";
  * @throws {Error} If the response from the API is not ok.
  */
 export const fetchTrackBracketsApi = async (
-  year: string
+  year: number
 ): Promise<TaxBracket[]> => {
   const response = await fetch(`${API_ENDPOINT}${year}`);
 
