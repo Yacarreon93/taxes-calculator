@@ -11,7 +11,7 @@ const TaxCalculatorForm: React.FC<TaxCalculatorFormProps> = ({ onSubmit }) => {
   const [salary, setSalary] = useState("");
   const [year, setYear] = useState("");
 
-  const years = [2020, 2021, 2022, 2023, 2024];
+  const years = ["2019", "2020", "2021", "2022"];
 
   const handleSubmit = () => onSubmit(salary, year);
 
