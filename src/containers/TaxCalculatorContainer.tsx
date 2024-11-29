@@ -5,12 +5,6 @@ import TaxCalculatorResults from "../components/molecules/TaxCalculatorResults";
 import useApiFetch from "../hooks/useApiFetch";
 import { fetchTrackBracketsApi } from "../services/api";
 
-interface TaxBracket {
-  min: number;
-  max: number;
-  rate: number;
-}
-
 const TaxCalculatorContainer = () => {
   const [year, setYear] = useState("2022");
   const [salary, setSalary] = useState("");
