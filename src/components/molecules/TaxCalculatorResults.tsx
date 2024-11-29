@@ -17,6 +17,7 @@ interface TaxCalculatorResultsProps {
   loading: boolean;
   salary: number;
   data: TaxBracket[];
+  total: number;
 }
 
 const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
@@ -24,6 +25,7 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
   loading,
   salary,
   data,
+  total,
 }) => {
   if (!!error) {
     return (
@@ -80,6 +82,12 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
             </TableBody>
           </Table>
         </TableContainer>
+        <Box alignSelf="flex-end" textAlign="right">
+          <Typography variant="h6">
+            Total Taxes: {formatToDollars(total)}
+          </Typography>
+          <Typography>Effective Rate: {formatToDollars(total)}</Typography>
+        </Box>
       </Box>
     );
   }

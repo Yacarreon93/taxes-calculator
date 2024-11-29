@@ -9,7 +9,7 @@ const API_ENDPOINT = "http://localhost:5001/tax-calculator/tax-year/";
  * @returns {Promise<TaxBracket[]>} A promise that resolves to an array of tax brackets.
  * @throws {Error} If the response from the API is not ok.
  */
-export const fetchTrackBracketsApi = async (
+export const fetchTaxBracketsApi = async (
   year: number
 ): Promise<TaxBracket[]> => {
   const response = await fetch(`${API_ENDPOINT}${year}`);

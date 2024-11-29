@@ -1,28 +1,50 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Box, Typography, Container } from "@mui/material";
 import TaxCalculatorForm from "../components/molecules/TaxCalculatorForm";
 import TaxCalculatorResults from "../components/molecules/TaxCalculatorResults";
 import useApiFetch from "../hooks/useApiFetch";
-import { fetchTrackBracketsApi } from "../services/api";
+import { fetchTaxBracketsApi } from "../services/api";
+import { TaxBracket } from "../types";
+import { getTaxesPerBracket } from "../utils/taxes";
 
 const YEAR_OPTIONS = ["2022", "2021", "2020", "2019"];
 
 const TaxCalculatorContainer = () => {
-  const [year, setYear] = useState<number>(Number(YEAR_OPTIONS[0]));
+  const [year, setYear] = useState(Number(YEAR_OPTIONS[0]));
   const [salary, setSalary] = useState<number>();
+  const [data, setData] = useState<TaxBracket[]>([]);
+  const [total, setTotal] = useState(0);
 
-  const fetchTrackBrackets = useCallback(
-    () => fetchTrackBracketsApi(year),
-    [year]
-  );
+  const fetchTaxBrackets = useCallback(() => fetchTaxBracketsApi(year), [year]);
 
-  const { loading, error, data, fetchData } = useApiFetch(fetchTrackBrackets);
+  const {
+    loading,
+    error,
+    data: taxBrackets,
+    fetchData,
+  } = useApiFetch<TaxBracket>(fetchTaxBrackets);
 
   const handleSubmit = (year: string, salary: string) => {
     setYear(Number(year));
     setSalary(Number(salary));
     fetchData();
   };
+
+  const processTaxBrackets = (taxBrackets: TaxBracket[]) => {
+    return taxBrackets.map((bracket) => ({
+      ...bracket,
+      total: getTaxesPerBracket(bracket, salary || 0),
+    }));
+  };
+
+  useEffect(() => {
+    setData(processTaxBrackets(taxBrackets));
+  }, [taxBrackets]);
+
+  useEffect(() => {
+    const total = data.reduce((acc, bracket) => acc + (bracket.total || 0), 0);
+    setTotal(total);
+  }, [data]);
 
   return (
     <Container maxWidth="sm">
@@ -37,6 +59,7 @@ const TaxCalculatorContainer = () => {
         />
         <TaxCalculatorResults
           data={data}
+          total={total}
           salary={Number(salary)}
           error={error}
           loading={loading}
