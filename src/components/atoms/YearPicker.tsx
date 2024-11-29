@@ -6,22 +6,27 @@ import InputLabel from "@mui/material/InputLabel";
 
 interface YearPickerProps {
   value: string;
-  onChange: (value: string) => void;
+  disabled: boolean;
   yearOptions: string[];
+  onChange: (value: string) => void;
 }
 
 const YearPicker: React.FC<YearPickerProps> = ({
   value,
-  onChange,
+  disabled,
   yearOptions,
+  onChange,
 }) => {
   return (
     <FormControl fullWidth>
-      <InputLabel id="year-select-label">Select Year</InputLabel>
+      <InputLabel disabled={disabled} id="year-select-label">
+        Select Year
+      </InputLabel>
       <Select
         label="Select Year"
         labelId="year-select-label"
         value={value}
+        disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
       >
         {yearOptions.map((year: string) => (

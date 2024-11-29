@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 interface TaxCalculatorFormProps {
   year: string;
   salary: string;
+  disabled: boolean;
   onChange: (key: string, value: string) => void;
   onSubmit: () => void;
 }
@@ -13,6 +14,7 @@ interface TaxCalculatorFormProps {
 const TaxCalculatorForm: React.FC<TaxCalculatorFormProps> = ({
   year,
   salary,
+  disabled,
   onChange,
   onSubmit,
 }) => {
@@ -22,18 +24,20 @@ const TaxCalculatorForm: React.FC<TaxCalculatorFormProps> = ({
     <Box display="flex" alignItems="center" gap={2}>
       <SalaryInput
         value={salary}
+        disabled={disabled}
         onChange={(value) => onChange("salary", value)}
       />
       <YearPicker
         value={year}
         onChange={(value) => onChange("year", value)}
+        disabled={disabled}
         yearOptions={years}
       />
       <Box>
         <Button
           variant="contained"
           onClick={onSubmit}
-          disabled={!salary || !year}
+          disabled={disabled || !salary || !year}
         >
           Calculate
         </Button>

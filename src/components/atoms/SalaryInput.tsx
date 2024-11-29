@@ -4,6 +4,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 
 interface SalaryInputProps {
   value: string;
+  disabled?: boolean;
   onChange: (value: string) => void;
 }
 
@@ -13,7 +14,11 @@ const formatNumberWithCommas = (value: string): string => {
   return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const SalaryInput: React.FC<SalaryInputProps> = ({ value, onChange }) => {
+const SalaryInput: React.FC<SalaryInputProps> = ({
+  value,
+  disabled,
+  onChange,
+}) => {
   const [displayValue, setDisplayValue] = useState(
     formatNumberWithCommas(value)
   );
@@ -32,6 +37,7 @@ const SalaryInput: React.FC<SalaryInputProps> = ({ value, onChange }) => {
       variant="outlined"
       type="text" // Use text for formatted input instead of number
       value={displayValue}
+      disabled={disabled}
       onChange={handleInputChange}
       slotProps={{
         htmlInput: {
