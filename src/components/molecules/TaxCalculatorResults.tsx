@@ -46,8 +46,8 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
   }
 
   const totalTaxes = useMemo(
-    () => data.reduce((acc, bracket) => acc + (bracket.taxes || 0), 0),
-    [data]
+    () => taxBrackets.reduce((acc, bracket) => acc + (bracket.taxes || 0), 0),
+    [taxBrackets]
   );
   const effectiveRate = totalTaxes / salary;
 
