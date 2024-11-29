@@ -33,7 +33,7 @@ const TaxCalculatorContainer = () => {
 
   return (
     <Container maxWidth="sm">
-      <Box display="flex" flexDirection="column" gap={4}>
+      <Box display="flex" flexDirection="column" gap={4} minHeight="100vh">
         <Typography variant="h1">Tax Calculator</Typography>
         <TaxCalculatorForm
           year={year}
