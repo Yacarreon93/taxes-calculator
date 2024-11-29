@@ -18,16 +18,16 @@ interface TaxCalculatorResultsProps {
   error: Error | null;
   loading: boolean;
   salary: number;
-  data: TaxBracket[];
+  taxBrackets: TaxBracket[];
 }
 
 const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
   error,
   loading,
   salary,
-  data,
+  taxBrackets,
 }) => {
-  if (!!error || !data.length) {
+  if (!!error || !taxBrackets.length) {
     return (
       <Box textAlign="center">
         <Typography color="error">
@@ -66,7 +66,7 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((bracket: TaxBracket) => (
+            {taxBrackets.map((bracket: TaxBracket) => (
               <TableRow key={bracket.min}>
                 <TableCell>
                   {bracket.max

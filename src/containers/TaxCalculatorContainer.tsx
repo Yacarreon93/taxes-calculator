@@ -12,14 +12,14 @@ const YEAR_OPTIONS = ["2022", "2021", "2020", "2019"];
 const TaxCalculatorContainer = () => {
   const [year, setYear] = useState(Number(YEAR_OPTIONS[0]));
   const [salary, setSalary] = useState(0);
-  const [data, setData] = useState<TaxBracket[]>([]);
+  const [taxBrackets, setTaxBrackets] = useState<TaxBracket[]>([]);
 
   const fetchTaxBrackets = useCallback(() => fetchTaxBracketsApi(year), [year]);
 
   const {
     loading,
     error,
-    data: taxBrackets,
+    data: rawTaxBrackets,
     fetchData,
   } = useApiFetch<TaxBracket>(fetchTaxBrackets);
 
@@ -30,7 +30,7 @@ const TaxCalculatorContainer = () => {
   };
 
   useEffect(() => {
-    setData(processTaxBrackets(taxBrackets, salary));
+    setTaxBrackets(processTaxBrackets(rawTaxBrackets, salary));
   }, [taxBrackets]);
 
   return (
@@ -45,8 +45,8 @@ const TaxCalculatorContainer = () => {
           onSubmit={handleSubmit}
         />
         <TaxCalculatorResults
-          data={data}
           salary={salary}
+          taxBrackets={taxBrackets}
           error={error}
           loading={loading}
         />
