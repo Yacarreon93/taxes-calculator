@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { Box, Typography, Container } from "@mui/material";
 import TaxCalculatorForm from "../components/molecules/TaxCalculatorForm";
 import TaxCalculatorResults from "../components/molecules/TaxCalculatorResults";
-import useResults from "../hooks/useResults";
+import useApiFetch from "../hooks/useApiFetch";
 import { fetchTrackBracketsApi } from "../services/api";
 
 interface TaxBracket {
@@ -20,8 +20,7 @@ const TaxCalculatorContainer = () => {
     [year]
   );
 
-  const { loading, error, results, fetchResults } =
-    useResults(fetchTrackBrackets);
+  const { loading, error, data, fetchData } = useApiFetch(fetchTrackBrackets);
 
   const handleChange = (key: string, value: string) => {
     if (key === "year") {
@@ -40,13 +39,9 @@ const TaxCalculatorContainer = () => {
           year={year}
           salary={salary}
           onChange={handleChange}
-          onSubmit={fetchResults}
+          onSubmit={fetchData}
         />
-        <TaxCalculatorResults
-          error={error}
-          loading={loading}
-          results={results}
-        />
+        <TaxCalculatorResults error={error} loading={loading} data={data} />
       </Box>
     </Container>
   );

@@ -13,13 +13,13 @@ import { formatToDollars } from "../../utils/format";
 interface TaxCalculatorResultsProps {
   error: Error | null;
   loading: boolean;
-  results: any[];
+  data: any[];
 }
 
 const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
   error,
   loading,
-  results,
+  data,
 }) => {
   if (!!error) {
     return (
@@ -39,7 +39,7 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
     );
   }
 
-  if (results.length) {
+  if (data.length) {
     return (
       <TableContainer component={Paper}>
         <Table>
@@ -50,7 +50,7 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {results.map((result: any) => (
+            {data.map((result: any) => (
               <TableRow key={result.id}>
                 <TableCell>
                   {result.max
@@ -60,7 +60,7 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
                       ].join(" - ")
                     : formatToDollars(result.min)}
                 </TableCell>
-                <TableCell>{result.rate}</TableCell>
+                <TableCell>{`${result.rate}%`}</TableCell>
               </TableRow>
             ))}
           </TableBody>
