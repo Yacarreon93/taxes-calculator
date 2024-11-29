@@ -34,31 +34,3 @@ export const processTaxBrackets = (
     taxes: getTaxesPerBracket(bracket, salary || 0),
   }));
 };
-
-/**
- * Calculates the effective tax rate for a specific bracket based on the yearly salary.
- *
- * @param {Object} bracket - The tax bracket with min, max, and rate.
- * @param {number} bracket.min - The minimum income for the bracket.
- * @param {number} bracket.max - The maximum income for the bracket.
- * @param {number} bracket.rate - The tax rate for the bracket (as a decimal, e.g., 0.1 for 10%).
- * @param {number} salary - The yearly salary.
- * @returns {number} - The effective tax rate for the given bracket as a decimal.
- */
-function getEffectiveRate(bracket: TaxBracket, salary: number) {
-  const { min, max, rate } = bracket;
-
-  // Determine the effective max income for this bracket
-  const incomeInBracket = salary > max ? max : salary;
-
-  // Calculate the taxable income for this bracket
-  const taxableIncome = incomeInBracket > min ? incomeInBracket - min : 0;
-
-  // Calculate the total tax for this bracket
-  const tax = taxableIncome * rate;
-
-  // Calculate the effective tax rate
-  const effectiveRate = tax / salary;
-
-  return effectiveRate;
-}
