@@ -2,41 +2,39 @@ import SalaryInput from "../atoms/SalaryInput";
 import YearPicker from "../atoms/YearPicker";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
+import { useState } from "react";
 
 interface TaxCalculatorFormProps {
-  year: string;
-  salary: string;
+  initialYear?: number;
+  initialSalary?: number;
+  yearOptions: string[];
   disabled: boolean;
-  onChange: (key: string, value: string) => void;
-  onSubmit: () => void;
+  onSubmit: (year: string, salary: string) => void;
 }
 
 const TaxCalculatorForm: React.FC<TaxCalculatorFormProps> = ({
-  year,
-  salary,
+  initialYear = "",
+  initialSalary = "",
+  yearOptions,
   disabled,
-  onChange,
   onSubmit,
 }) => {
-  const years = ["2019", "2020", "2021", "2022"];
+  const [year, setYear] = useState(String(initialYear));
+  const [salary, setSalary] = useState(String(initialSalary));
 
   return (
     <Box display="flex" alignItems="center" gap={2}>
-      <SalaryInput
-        value={salary}
-        disabled={disabled}
-        onChange={(value) => onChange("salary", value)}
-      />
+      <SalaryInput value={salary} disabled={disabled} onChange={setSalary} />
       <YearPicker
         value={year}
         disabled={disabled}
-        yearOptions={years}
-        onChange={(value) => onChange("year", value)}
+        yearOptions={yearOptions}
+        onChange={setYear}
       />
       <Box>
         <Button
           variant="contained"
-          onClick={onSubmit}
+          onClick={() => onSubmit(year, salary)}
           disabled={disabled || !salary || !year}
         >
           Calculate

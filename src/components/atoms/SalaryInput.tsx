@@ -1,18 +1,13 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
+import { formatNumberWithCommas } from "../../utils/format";
 
 interface SalaryInputProps {
   value: string;
   disabled?: boolean;
   onChange: (value: string) => void;
 }
-
-const formatNumberWithCommas = (value: string): string => {
-  const numericValue = value.replace(/\D/g, "");
-
-  return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
 
 const SalaryInput: React.FC<SalaryInputProps> = ({
   value,

@@ -5,9 +5,11 @@ import TaxCalculatorResults from "../components/molecules/TaxCalculatorResults";
 import useApiFetch from "../hooks/useApiFetch";
 import { fetchTrackBracketsApi } from "../services/api";
 
+const YEAR_OPTIONS = ["2022", "2021", "2020", "2019"];
+
 const TaxCalculatorContainer = () => {
-  const [year, setYear] = useState("2022");
-  const [salary, setSalary] = useState("");
+  const [year, setYear] = useState<number>(Number(YEAR_OPTIONS[0]));
+  const [salary, setSalary] = useState<number>();
 
   const fetchTrackBrackets = useCallback(
     () => fetchTrackBracketsApi(year),
@@ -16,13 +18,10 @@ const TaxCalculatorContainer = () => {
 
   const { loading, error, data, fetchData } = useApiFetch(fetchTrackBrackets);
 
-  const handleChange = (key: string, value: string) => {
-    if (key === "year") {
-      setYear(value);
-    }
-    if (key === "salary") {
-      setSalary(value);
-    }
+  const handleSubmit = (year: string, salary: string) => {
+    setYear(Number(year));
+    setSalary(Number(salary));
+    fetchData();
   };
 
   return (
@@ -30,11 +29,11 @@ const TaxCalculatorContainer = () => {
       <Box display="flex" flexDirection="column" gap={4} minHeight="100vh">
         <Typography variant="h1">Tax Calculator</Typography>
         <TaxCalculatorForm
-          year={year}
-          salary={salary}
+          initialYear={year}
+          initialSalary={salary}
+          yearOptions={YEAR_OPTIONS}
           disabled={loading}
-          onChange={handleChange}
-          onSubmit={fetchData}
+          onSubmit={handleSubmit}
         />
         <TaxCalculatorResults
           data={data}
