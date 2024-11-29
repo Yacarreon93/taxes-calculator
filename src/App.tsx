@@ -1,5 +1,7 @@
+import TaxCalculatorContainer from "./containers/TaxCalculatorContainer";
+
 const App = () => {
-  return <div>Hello World</div>;
+  return <TaxCalculatorContainer />;
 };
 
 export default App;
