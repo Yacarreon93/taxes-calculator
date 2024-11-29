@@ -1,3 +1,19 @@
+/**
+ * Custom hook to fetch and process results from an API.
+ *
+ * @template V - The type of the raw data fetched from the API.
+ * @template T - The type of the processed data.
+ *
+ * @param {() => Promise<V[]>} fetchApiFunction - The function to fetch raw data from the API.
+ * @param {(rawData: V[]) => T[]} processorFunction - The function to process the raw data into the desired format.
+ *
+ * @returns {{
+ *   loading: boolean;
+ *   error: Error | null;
+ *   results: T[];
+ *   fetchResults: () => Promise<void>;
+ * }} An object containing the loading state, error state, processed results, and a function to fetch and process the results.
+ */
 import { useState } from "react";
 
 const useResults = <V, T>(
@@ -5,7 +21,7 @@ const useResults = <V, T>(
   processorFunction: (rawData: V[]) => T[]
 ) => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
   const [results, setResults] = useState<T[]>([]);
 
   const fetchResults = async () => {
@@ -17,7 +33,7 @@ const useResults = <V, T>(
       setResults(data);
     } catch (err) {
       const error = err as Error;
-      setError(error.message || "An error occurred");
+      setError(error);
     }
     setLoading(false);
   };
