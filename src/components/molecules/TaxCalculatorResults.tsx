@@ -27,7 +27,7 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
   salary,
   taxBrackets,
 }) => {
-  if (!!error || !taxBrackets.length) {
+  if (!!error) {
     return (
       <Box textAlign="center">
         <Typography color="error">
@@ -51,50 +51,52 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
   );
   const effectiveRate = totalTaxes / salary;
 
-  return (
-    <Box display="flex" flexDirection="column" gap={2}>
-      <Typography variant="h6">
-        Yearly Salary: <i>{formatToDollars(salary)}</i>
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Bracket </TableCell>
-              <TableCell>Rate</TableCell>
-              <TableCell>Taxes per Bracket</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {taxBrackets.map((bracket: TaxBracket) => (
-              <TableRow key={bracket.min}>
-                <TableCell>
-                  {bracket.max
-                    ? [
-                        formatToDollars(bracket.min),
-                        formatToDollars(bracket.max),
-                      ].join(" - ")
-                    : formatToDollars(bracket.min)}
-                </TableCell>
-                <TableCell>{formatToPercentage(bracket.rate)}</TableCell>
-                <TableCell>
-                  <i>{formatToDollars(bracket.taxes || 0)}</i>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Box alignSelf="flex-end" textAlign="right">
+  if (taxBrackets.length) {
+    return (
+      <Box display="flex" flexDirection="column" gap={2}>
         <Typography variant="h6">
-          Total Taxes: {formatToDollars(totalTaxes)}
+          Yearly Salary: <i>{formatToDollars(salary)}</i>
         </Typography>
-        <Typography>
-          Effective Rate: {formatToPercentage(effectiveRate)}
-        </Typography>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Bracket </TableCell>
+                <TableCell>Rate</TableCell>
+                <TableCell>Taxes per Bracket</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {taxBrackets.map((bracket: TaxBracket) => (
+                <TableRow key={bracket.min}>
+                  <TableCell>
+                    {bracket.max
+                      ? [
+                          formatToDollars(bracket.min),
+                          formatToDollars(bracket.max),
+                        ].join(" - ")
+                      : formatToDollars(bracket.min)}
+                  </TableCell>
+                  <TableCell>{formatToPercentage(bracket.rate)}</TableCell>
+                  <TableCell>
+                    <i>{formatToDollars(bracket.taxes || 0)}</i>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Box alignSelf="flex-end" textAlign="right">
+          <Typography variant="h6">
+            Total Taxes: {formatToDollars(totalTaxes)}
+          </Typography>
+          <Typography>
+            Effective Rate: {formatToPercentage(effectiveRate)}
+          </Typography>
+        </Box>
       </Box>
-    </Box>
-  );
+    );
+  }
 };
 
 export default TaxCalculatorResults;
