@@ -50,10 +50,10 @@ const TaxCalculatorContainer = () => {
           onSubmit={handleSubmit}
         />
         <TaxCalculatorResults
-          salary={salary}
-          taxBracketsWithTaxes={taxBracketsWithTaxes}
           error={error}
           loading={loading}
+          salary={salary}
+          taxBracketsWithTaxes={taxBracketsWithTaxes}
         />
       </Box>
     </Container>
