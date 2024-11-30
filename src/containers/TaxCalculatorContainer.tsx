@@ -16,24 +16,27 @@ const TaxCalculatorContainer = () => {
     TaxBracketWithTaxes[]
   >([]);
 
-  const fetchTaxBrackets = useCallback(() => fetchTaxBracketsApi(year), [year]);
+  const fetchTaxBracketsCb = useCallback(
+    () => fetchTaxBracketsApi(year),
+    [year]
+  );
 
   const {
-    loading,
     error,
-    data: rawTaxBrackets,
-    fetchData,
-  } = useApiFetch<TaxBracket>(fetchTaxBrackets);
+    loading,
+    data: taxBrackets,
+    fetchData: fetchTaxBrackets,
+  } = useApiFetch<TaxBracket>(fetchTaxBracketsCb);
 
   const handleSubmit = (year: string, salary: string) => {
     setYear(Number(year));
     setSalary(Number(salary));
-    fetchData();
+    fetchTaxBrackets();
   };
 
   useEffect(() => {
-    setTaxBracketsWithTaxes(processTaxBrackets(rawTaxBrackets, salary));
-  }, [rawTaxBrackets]);
+    setTaxBracketsWithTaxes(processTaxBrackets(taxBrackets, salary));
+  }, [taxBrackets]);
 
   return (
     <Container maxWidth="sm">

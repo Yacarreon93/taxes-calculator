@@ -19,7 +19,7 @@ const getTaxesPerBracket = (bracket: TaxBracket, salary: number) => {
 };
 
 /**
- * Processes the tax brackets to calculate the total tax for each bracket.
+ * Processes the tax brackets to inject the total tax for each bracket.
  *
  * @param {Object[]} taxBrackets - The tax brackets.
  * @param {number} salary - The yearly salary.
