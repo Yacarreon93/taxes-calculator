@@ -5,14 +5,16 @@ import TaxCalculatorResults from "../components/molecules/TaxCalculatorResults";
 import useApiFetch from "../hooks/useApiFetch";
 import { fetchTaxBracketsApi } from "../services/api";
 import { processTaxBrackets } from "../utils/taxes";
-import { TaxBracket } from "../types";
+import { TaxBracket, TaxBracketWithTaxes } from "../types";
 
 const YEAR_OPTIONS = ["2022", "2021", "2020", "2019"];
 
 const TaxCalculatorContainer = () => {
   const [year, setYear] = useState(Number(YEAR_OPTIONS[0]));
   const [salary, setSalary] = useState(0);
-  const [taxBrackets, setTaxBrackets] = useState<TaxBracket[]>([]);
+  const [taxBracketsWithTaxes, setTaxBracketsWithTaxes] = useState<
+    TaxBracketWithTaxes[]
+  >([]);
 
   const fetchTaxBrackets = useCallback(() => fetchTaxBracketsApi(year), [year]);
 
@@ -30,8 +32,8 @@ const TaxCalculatorContainer = () => {
   };
 
   useEffect(() => {
-    setTaxBrackets(processTaxBrackets(rawTaxBrackets, salary));
-  }, [taxBrackets]);
+    setTaxBracketsWithTaxes(processTaxBrackets(rawTaxBrackets, salary));
+  }, [rawTaxBrackets]);
 
   return (
     <Container maxWidth="sm">
@@ -46,7 +48,7 @@ const TaxCalculatorContainer = () => {
         />
         <TaxCalculatorResults
           salary={salary}
-          taxBrackets={taxBrackets}
+          taxBracketsWithTaxes={taxBracketsWithTaxes}
           error={error}
           loading={loading}
         />

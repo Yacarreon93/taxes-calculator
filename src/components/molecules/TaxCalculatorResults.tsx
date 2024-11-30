@@ -12,20 +12,20 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { formatToDollars, formatToPercentage } from "../../utils/format";
-import { TaxBracket } from "../../types";
+import { TaxBracketWithTaxes } from "../../types";
 
 interface TaxCalculatorResultsProps {
   error: Error | null;
   loading: boolean;
   salary: number;
-  taxBrackets: TaxBracket[];
+  taxBracketsWithTaxes: TaxBracketWithTaxes[];
 }
 
 const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
   error,
   loading,
   salary,
-  taxBrackets,
+  taxBracketsWithTaxes,
 }) => {
   if (!!error) {
     return (
@@ -46,12 +46,12 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
   }
 
   const totalTaxes = useMemo(
-    () => taxBrackets.reduce((acc, bracket) => acc + (bracket.taxes || 0), 0),
-    [taxBrackets]
+    () => taxBracketsWithTaxes.reduce((acc, bracket) => acc + bracket.taxes, 0),
+    [taxBracketsWithTaxes]
   );
   const effectiveRate = totalTaxes / salary;
 
-  if (taxBrackets.length) {
+  if (taxBracketsWithTaxes.length) {
     return (
       <Box display="flex" flexDirection="column" gap={2}>
         <Typography variant="h6">
@@ -67,7 +67,7 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {taxBrackets.map((bracket: TaxBracket) => (
+              {taxBracketsWithTaxes.map((bracket: TaxBracketWithTaxes) => (
                 <TableRow key={bracket.min}>
                   <TableCell>
                     {bracket.max
@@ -79,7 +79,7 @@ const TaxCalculatorResults: React.FC<TaxCalculatorResultsProps> = ({
                   </TableCell>
                   <TableCell>{formatToPercentage(bracket.rate)}</TableCell>
                   <TableCell>
-                    <i>{formatToDollars(bracket.taxes || 0)}</i>
+                    <i>{formatToDollars(bracket.taxes)}</i>
                   </TableCell>
                 </TableRow>
               ))}

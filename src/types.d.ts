@@ -2,5 +2,8 @@ export interface TaxBracket {
   min: number;
   max: number;
   rate: number;
-  taxes: ?number;
+}
+
+export interface TaxBracketWithTaxes extends TaxBracket {
+  taxes: number;
 }
