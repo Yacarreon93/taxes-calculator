@@ -72,7 +72,6 @@ describe("TaxCalculatorContainer", () => {
     (processTaxBrackets as vi.Mock).mockReturnValue(mockProcessedTaxBrackets);
 
     render(<TaxCalculatorContainer />);
-    screen.debug();
 
     const salaryInput = screen.getByLabelText("Yearly Salary");
     const submitButton = screen.getByText("Calculate");
