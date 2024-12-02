@@ -10,7 +10,7 @@ import { TaxBracket } from "../types";
  * @param {number} salary - The yearly salary.
  * @returns {number} - The total tax for the given bracket.
  */
-const getTaxesPerBracket = (bracket: TaxBracket, salary: number) => {
+export const getTaxesPerBracket = (bracket: TaxBracket, salary: number) => {
   const { min, max, rate } = bracket;
   const salaryInBracket = salary > max ? max : salary;
   const taxableSalary = salaryInBracket > min ? salaryInBracket - min : 0;
