@@ -19,7 +19,6 @@ git clone https://github.com/Yacarreon93/taxes-calculator
 cd taxes-calculator
 npm install
 npm start
-
 ```
 
 ## Usage
@@ -28,6 +27,12 @@ npm start
 2. Enter your financial information and click "Calculate" to see your tax results.
 
 Note: The API occasionally fails intentionally. Don't worry, this behavior is expected and fully handled.
+
+## Test
+
+```bash
+npm run test
+```
 
 ## Files & Directories description
 
