@@ -22,8 +22,8 @@ docker pull ptsdocker16/interview-test-server
 docker run --init -p 5001:5001 -it ptsdocker16/interview-test-server
 ```
 
-- Navigate to `http://localhost:5001`
-  /tax-calculator/tax-year/2022 - endpoint this app is working against
+- Navigate to `http://localhost:5001` for detailed instructions.
+- The endpoint this app is working against`http://localhost:5001/tax-calculator/tax-year/2022`.
 
 ## Usage
 
