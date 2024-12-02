@@ -4,12 +4,6 @@
 
 The Taxes Calculator helps you calculate your taxes based on your yearly salary. Provides an easy-to-use interface for users to input their financial information and receive detailed tax information, amount of taxes owed per band, total amount of taxes owed, and effective rate.
 
-## Features
-
-- User-friendly interface
-- Accurate tax calculations
-- Detailed breakdown of tax
-
 ## Installation
 
 Use the next commands to install and run:
@@ -21,9 +15,19 @@ npm install
 npm start
 ```
 
+In order to run the API locally, please follow these instructions:
+
+```bash
+docker pull ptsdocker16/interview-test-server
+docker run --init -p 5001:5001 -it ptsdocker16/interview-test-server
+```
+
+- Navigate to `http://localhost:5001`
+  /tax-calculator/tax-year/2022 - endpoint this app is working against
+
 ## Usage
 
-1. Open your web browser and navigate to `http://localhost:3000`.
+1. Open your web browser and navigate to `http://localhost:5173`.
 2. Enter your financial information and click "Calculate" to see your tax results.
 
 Note: The API occasionally fails intentionally. Don't worry, this behavior is expected and fully handled.
