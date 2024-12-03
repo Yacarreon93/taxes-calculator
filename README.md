@@ -12,7 +12,7 @@ Use the next commands to install and run:
 git clone https://github.com/Yacarreon93/taxes-calculator
 cd taxes-calculator
 npm install
-npm start
+npm run dev
 ```
 
 In order to run the API locally, please follow these instructions:
